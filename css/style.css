@@ -1,0 +1,114 @@
+*,
+html {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  font-family: "Poppins", "sans-serif";
+}
+.w-33 {
+  flex: 0 0 33.33%; /* Set elemen agar mengambil 1/3 lebar */
+}
+.table-wrapper {
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+.cancel-button {
+  display: inline-block; /* Membuat div seperti inline element */
+  padding: 10px 20px; /* Tambahkan padding */
+  border: 1px solid #007bff; /* Ganti dengan warna yang diinginkan */
+  border-radius: 4px; /* Membulatkan sudut */
+  background-color: transparent; /* Warna latar belakang transparan */
+  color: #007bff; /* Ganti dengan warna teks yang diinginkan */
+  cursor: pointer; /* Mengubah kursor menjadi pointer saat hover */
+  text-align: center; /* Mengatur teks menjadi center */
+  transition: background-color 0.3s, color 0.3s; /* Menambahkan efek transisi */
+}
+
+.cancel-button:hover {
+  background-color: #007bff; /* Ganti dengan warna latar belakang saat hover */
+  color: white; /* Ganti warna teks saat hover */
+}
+
+.table-responsive {
+  max-height: 400px;
+  overflow-y: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.product-form {
+  max-width: 500px;
+  margin: 0 auto;
+}
+tbody,
+td {
+  border: 1px solid black;
+}
+.sticky-header th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+table th,
+table td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+table td {
+  word-wrap: break-word;
+  word-break: break-all;
+  white-space: normal;
+}
+
+tbody tr td {
+  background-color: green;
+}
+
+.edit-mode input {
+  width: 100%;
+  padding: 5px;
+  margin: 2px 0;
+}
+.edit-mode {
+  background-color: #f8f9fa;
+}
+
+.custom-select-button {
+  background-color: white;
+  color: #0d6efd; /* Bootstrap primary color */
+  border: 1px solid #0d6efd;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.custom-select-button:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(13, 110, 253, 0.5); /* Primary color shadow */
+}
+
+@media (max-width: 768px) {
+  table {
+    width: 100%;
+  }
+  thead {
+    font-size: 0.7em;
+  }
+  tbody td,
+  button.btn {
+    font-size: 0.7em;
+  }
+  table th,
+  table td {
+    padding: 2px;
+  }
+  td {
+    height: 50px;
+  }
+
+  .btn {
+    font-size: 10px;
+    padding: 5px 10px;
+  }
+}
