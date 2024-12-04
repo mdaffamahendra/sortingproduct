@@ -14,7 +14,7 @@
       }
     }
   
-    return [...quickSort(left), pivot, ...quickSort(right)];
+    return [...quickSortQuantityHighToLow(left), pivot, ...quickSortQuantityHighToLow(right)];
   }
   
   // Bubble Sort

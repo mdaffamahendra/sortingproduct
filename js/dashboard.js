@@ -581,6 +581,7 @@ document.getElementById("btnCancelAddForm").addEventListener("click", () => {
   document.getElementById("formContainer").classList.add("d-none");
   document.getElementById("btnAddProduct").style.display = "block";
 });
+
 // Initialize the product manager
 const productManager = new ProductManager();
 productManager.fetchProducts();
