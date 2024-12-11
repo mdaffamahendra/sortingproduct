@@ -1,38 +1,4 @@
-import {
-  bubbleSortAlphabet,
-  insertionSortAlphabet,
-  quickSortAlphabet,
-  selectionSortAlphabet,
-} from "./sortingAlphabet.js";
-
-import {
-  quickSortPriceHighToLow,
-  bubbleSortPriceHighToLow,
-  insertionSortPriceHighToLow,
-  selectionSortPriceHighToLow,
-} from "./sortingPriceHighToLow.js";
-
-import {
-  quickSortPriceLowToHigh,
-  bubbleSortPriceLowToHigh,
-  insertionSortPriceLowToHigh,
-  selectionSortPriceLowToHigh,
-} from "./sortingPriceLowToHigh.js";
-
-import {
-  quickSortQuantityLowToHigh,
-  bubbleSortQuantityLowToHigh,
-  insertionSortQuantityLowToHigh,
-  selectionSortQuantityLowToHigh,
-} from "./sortingQuantityLowToHigh.js";
-
-import {
-  quickSortQuantityHighToLow,
-  bubbleSortQuantityHighToLow,
-  insertionSortQuantityHighToLow,
-  selectionSortQuantityHighToLow,
-} from "./sortingQuantityHighToLow.js";
-
+import { fetchData } from './sorting.js';
 
 // Configuration and Constants
 const CONFIG = {
@@ -156,221 +122,34 @@ class ProductManager {
   }
 
   // Sort products
-  sortProducts(productsToSort) {
-    const selectSort = document.getElementById("selectSort").value;
-    const sortBy = document.getElementById("sortSelect").value;
-    switch (selectSort) {
-      case "Quick Sort":
-        switch (sortBy) {
-          case "alphabet":
-            const startTimeQuickAlphabet = performance.now();
-            const sortedDataQuickAlphabet = quickSortAlphabet([
-              ...productsToSort,
-            ]); 
-            const endTimeQuickAlphabet = performance.now();
-
-            document.getElementById("timeSort").textContent =
-              (endTimeQuickAlphabet - startTimeQuickAlphabet).toFixed(2) + "ms";
-            return quickSortAlphabet(productsToSort);
-          case "quantity_asc":
-            const startTimeQuickQLTH = performance.now();
-            const sortedDataQuickQLTH = quickSortQuantityLowToHigh([
-              ...productsToSort,
-            ]);
-            const endTimeQuickQLTH = performance.now();
-            document.getElementById("timeSort").textContent =
-              (endTimeQuickQLTH - startTimeQuickQLTH).toFixed(2) + "ms";
-            return quickSortQuantityLowToHigh(productsToSort);
-          case "quantity_desc":
-            const startTimeQuickQHTL = performance.now();
-            const sortedDataQuickQHTL = quickSortQuantityHighToLow([
-              ...productsToSort,
-            ]);
-            const endTimeQuickQHTL = performance.now();
-            document.getElementById("timeSort").textContent =
-              (endTimeQuickQHTL - startTimeQuickQHTL).toFixed(2) + "ms";
-            return quickSortQuantityHighToLow(productsToSort);
-          case "price_asc":
-            const startTimeQuickPLTH = performance.now();
-            const sortedDataQuickPLTH = quickSortPriceLowToHigh([
-              ...productsToSort,
-            ]);
-            const endTimeQuickPLTH = performance.now();
-            document.getElementById("timeSort").textContent =
-              (endTimeQuickPLTH - startTimeQuickPLTH).toFixed(2) + "ms";
-            return quickSortPriceLowToHigh(productsToSort);
-          case "price_desc":
-            const startTimeQuickPHTL = performance.now();
-            const sortedDataQuickPHTL = quickSortPriceHighToLow([
-              ...productsToSort,
-            ]);
-            const endTimeQuickPHTL = performance.now();
-            document.getElementById("timeSort").textContent =
-              (endTimeQuickPHTL - startTimeQuickPHTL).toFixed(2) + "ms";
-            return quickSortPriceHighToLow(productsToSort);
-          default:
-            return productsToSort;
-        }
-      case "Insertion Sort":
-        switch (sortBy) {
-          case "alphabet":
-            const startTimeinsertionAlphabet = performance.now();
-            const sortedDatainsertionAlphabet = insertionSortAlphabet([
-              ...productsToSort,
-            ]); // Menggunakan copy array agar hasil tidak bercampur
-            const endTimeinsertionAlphabet = performance.now();
-
-            document.getElementById("timeSort").textContent =
-              (endTimeinsertionAlphabet - startTimeinsertionAlphabet).toFixed(
-                2
-              ) + "ms";
-            return insertionSortAlphabet(productsToSort);
-          case "quantity_asc":
-            const startTimeinsertionQLTH = performance.now();
-            const sortedDatainsertionQLTH = insertionSortQuantityLowToHigh([
-              ...productsToSort,
-            ]);
-            const endTimeinsertionQLTH = performance.now();
-            document.getElementById("timeSort").textContent =
-              (endTimeinsertionQLTH - startTimeinsertionQLTH).toFixed(2) + "ms";
-            return insertionSortQuantityLowToHigh(productsToSort);
-          case "quantity_desc":
-            const startTimeinsertionQHTL = performance.now();
-            const sortedDatainsertionQHTL = insertionSortQuantityHighToLow([
-              ...productsToSort,
-            ]);
-            const endTimeinsertionQHTL = performance.now();
-            document.getElementById("timeSort").textContent =
-              (endTimeinsertionQHTL - startTimeinsertionQHTL).toFixed(2) + "ms";
-            return insertionSortQuantityHighToLow(productsToSort);
-          case "price_asc":
-            const startTimeinsertionPLTH = performance.now();
-            const sortedDatainsertionPLTH = insertionSortPriceLowToHigh([
-              ...productsToSort,
-            ]);
-            const endTimeinsertionPLTH = performance.now();
-            document.getElementById("timeSort").textContent =
-              (endTimeinsertionPLTH - startTimeinsertionPLTH).toFixed(2) + "ms";
-            return insertionSortPriceLowToHigh(productsToSort);
-          case "price_desc":
-            const startTimeInsertionPHTL = performance.now();
-            const sortedDataInsertionPHTL = insertionSortPriceHighToLow([
-              ...productsToSort,
-            ]);
-            const endTimeInsertionPHTL = performance.now();
-            document.getElementById("timeSort").textContent =
-              (endTimeInsertionPHTL - startTimeInsertionPHTL).toFixed(2) + "ms";
-            return insertionSortPriceHighToLow(productsToSort);
-          default:
-            return productsToSort;
-        }
-      case "Selection Sort":
-        switch (sortBy) {
-          case "alphabet":
-            const startTimeselectionAlphabet = performance.now();
-            const sortedDataselectionAlphabet = selectionSortAlphabet([
-              ...productsToSort,
-            ]); // Menggunakan copy array agar hasil tidak bercampur
-            const endTimeselectionAlphabet = performance.now();
-
-            document.getElementById("timeSort").textContent =
-              (endTimeselectionAlphabet - startTimeselectionAlphabet).toFixed(
-                2
-              ) + "ms";
-            return selectionSortAlphabet(productsToSort);
-          case "quantity_asc":
-            const startTimeselectionQLTH = performance.now();
-            const sortedDataselectionQLTH = selectionSortQuantityLowToHigh([
-              ...productsToSort,
-            ]);
-            const endTimeselectionQLTH = performance.now();
-            document.getElementById("timeSort").textContent =
-              (endTimeselectionQLTH - startTimeselectionQLTH).toFixed(2) + "ms";
-            return selectionSortQuantityLowToHigh(productsToSort);
-          case "quantity_desc":
-            const startTimeselectionQHTL = performance.now();
-            const sortedDataselectionQHTL = selectionSortQuantityHighToLow([
-              ...productsToSort,
-            ]);
-            const endTimeselectionQHTL = performance.now();
-            document.getElementById("timeSort").textContent =
-              (endTimeselectionQHTL - startTimeselectionQHTL).toFixed(2) + "ms";
-            return selectionSortQuantityHighToLow(productsToSort);
-          case "price_asc":
-            const startTimeselectionPLTH = performance.now();
-            const sortedDataselectionPLTH = selectionSortPriceLowToHigh([
-              ...productsToSort,
-            ]);
-            const endTimeselectionPLTH = performance.now();
-            document.getElementById("timeSort").textContent =
-              (endTimeselectionPLTH - startTimeselectionPLTH).toFixed(2) + "ms";
-            return selectionSortPriceLowToHigh(productsToSort);
-          case "price_desc":
-            const startTimeselectionPHTL = performance.now();
-            const sortedDataselectionPHTL = selectionSortPriceHighToLow([
-              ...productsToSort,
-            ]);
-            const endTimeselectionPHTL = performance.now();
-            document.getElementById("timeSort").textContent =
-              (endTimeselectionPHTL - startTimeselectionPHTL).toFixed(2) + "ms";
-            return selectionSortPriceHighToLow(productsToSort);
-          default:
-            return productsToSort;
-        }
-      default:
-        switch (sortBy) {
-          case "alphabet":
-            const startTimeBubbleAlphabet = performance.now();
-            const sortedDataBubbleAlphabet = bubbleSortAlphabet([
-              ...productsToSort,
-            ]); // Menggunakan copy array agar hasil tidak bercampur
-            const endTimeBubbleAlphabet = performance.now();
-
-            document.getElementById("timeSort").textContent =
-              (endTimeBubbleAlphabet - startTimeBubbleAlphabet).toFixed(2) +
-              "ms";
-            return bubbleSortAlphabet(productsToSort);
-          case "quantity_asc":
-            const startTimebubbleQLTH = performance.now();
-            const sortedDatabubbleQLTH = bubbleSortQuantityLowToHigh([
-              ...productsToSort,
-            ]);
-            const endTimebubbleQLTH = performance.now();
-            document.getElementById("timeSort").textContent =
-              (endTimebubbleQLTH - startTimebubbleQLTH).toFixed(2) + "ms";
-            return bubbleSortQuantityLowToHigh(productsToSort);
-          case "quantity_desc":
-            const startTimebubbleQHTL = performance.now();
-            const sortedDatabubbleQHTL = bubbleSortQuantityHighToLow([
-              ...productsToSort,
-            ]);
-            const endTimebubbleQHTL = performance.now();
-            document.getElementById("timeSort").textContent =
-              (endTimebubbleQHTL - startTimebubbleQHTL).toFixed(2) + "ms";
-            return bubbleSortQuantityHighToLow(productsToSort);
-          case "price_asc":
-            const startTimebubblePLTH = performance.now();
-            const sortedDatabubblePLTH = bubbleSortPriceLowToHigh([
-              ...productsToSort,
-            ]);
-            const endTimebubblePLTH = performance.now();
-            document.getElementById("timeSort").textContent =
-              (endTimebubblePLTH - startTimebubblePLTH).toFixed(2) + "ms";
-            return bubbleSortPriceLowToHigh(productsToSort);
-          case "price_desc":
-            const startTimeBubblePHTL = performance.now();
-            const sortedDataQuickPHTL = bubbleSortPriceHighToLow([
-              ...productsToSort,
-            ]);
-            const endTimeBubblePHTL = performance.now();
-            document.getElementById("timeSort").textContent =
-              (endTimeBubblePHTL - startTimeBubblePHTL).toFixed(2) + "ms";
-            return bubbleSortPriceHighToLow(productsToSort);
-          default:
-            return productsToSort;
-        }
+ sortProductsAscending = async () => {
+    try {
+      const sortBy = document.getElementById('sortSelect').value;
+      const sortName = document.getElementById('selectSort').value;
+  
+      const order = 'ascending'; 
+      const data = await fetchData(sortName, sortBy, order);
+      document.getElementById('timeSort').textContent = data.data.processingTime;
+      
+      return data.data.productSorted;
+    } catch (error) {
+      console.error('Error fetching data:', error);
     }
-  }
+  };
+  
+  sortProductsDescending = async () => {
+    try {
+      const sortBy = document.getElementById('sortSelect').value;
+      const sortName = document.getElementById('selectSort').value;
+  
+      const order = 'descending'; 
+      const data = await fetchData(sortName, sortBy, order);
+      document.getElementById('timeSort').textContent = data.data.processingTime;
+      return data.data.productSorted;
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
 
   // Filter products by category
 // Filter products by category
@@ -385,10 +164,15 @@ filterByCategory(productsToFilter) {
 
 
   // Apply filters and sort to products
-  applyFiltersAndSort(productsToProcess = this.products) {
-    const filteredAndSortedProducts = this.sortProducts(
-      this.filterByCategory(productsToProcess)
-    );
+  async applyFiltersAndSort(productToSort = this.products) {
+    document.getElementById('nameSortSelected').textContent = `Kecepatan Sorting (${toTitleCase(document.getElementById('selectSort').value)} Sort)`;
+  
+    const sortBy = document.getElementById('sortSelect').value;
+    if(!sortBy) return this.displayProducts(productToSort);
+
+    const sortOrder = sortSelect.selectedOptions[0].getAttribute('data-sort');
+    const filteredAndSortedProducts = (sortOrder === "ascending") ? await this.sortProductsAscending() : await this.sortProductsDescending();
+
     this.displayProducts(filteredAndSortedProducts);
   }
 
@@ -582,13 +366,25 @@ document.getElementById("btnCancelAddForm").addEventListener("click", () => {
   document.getElementById("btnAddProduct").style.display = "block";
 });
 
+
+function toTitleCase(input) {
+  return input
+      .toLowerCase()
+      .split(' ') 
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1)) 
+      .join(' '); 
+}
+
+
 document.getElementById('selectSort').addEventListener('change', () => {
-  document.getElementById('nameSortSelected').textContent = `Kecepatan Sorting (${document.getElementById('selectSort').value})`;
+  document.getElementById('nameSortSelected').textContent = `Kecepatan Sorting (${toTitleCase(document.getElementById('selectSort').value)} Sort)`;
   
 })
 
+
+
 // Initialize the product manager
-document.getElementById('nameSortSelected').textContent = 'Kecepatan Sorting (Bubble Sort)';
+document.getElementById('nameSortSelected').textContent = 'Kecepatan Sorting';
 const productManager = new ProductManager();
 productManager.fetchProducts();
 
