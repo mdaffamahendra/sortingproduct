@@ -582,7 +582,13 @@ document.getElementById("btnCancelAddForm").addEventListener("click", () => {
   document.getElementById("btnAddProduct").style.display = "block";
 });
 
+document.getElementById('selectSort').addEventListener('change', () => {
+  document.getElementById('nameSortSelected').textContent = `Kecepatan Sorting (${document.getElementById('selectSort').value})`;
+  
+})
+
 // Initialize the product manager
+document.getElementById('nameSortSelected').textContent = 'Kecepatan Sorting (Bubble Sort)';
 const productManager = new ProductManager();
 productManager.fetchProducts();
 

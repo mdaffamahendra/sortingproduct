@@ -26,7 +26,7 @@
   </head>
 
   <body class="bg-light">
-    <div class="bg-light">
+    <div class="bg-light min-h-screen">
       <div class="container py-3 mb-3 bg-primary rounded shadow">
         <div
           class="d-flex flex-column flex-md-row justify-content-between align-items-center p-3"
@@ -99,7 +99,7 @@
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-filter" viewBox="0 0 16 16">
                 <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5"/>
               </svg>
-              <p id="nameSortSelected">Kecepatan Sorting (Bubble Sort)</p>
+              <p id="nameSortSelected"></p>
             </div>
           </div>
         </div>
@@ -118,11 +118,12 @@
           <div class="col-6 col-md-4 mb-2 mb-md-0 d-flex align-items-center">
             <select id="sortSelect" class="form-select">
               <option value="">Sort by...</option>
-              <option value="alphabet">Alphabet</option>
-              <option value="quantity_asc">Quantity (Low to High)</option>
+              <option value="quantity">Quantity (Low to High)</option>
               <option value="quantity_desc">Quantity (High to Low)</option>
               <option value="price_asc">Price (Low to High)</option>
               <option value="price_desc">Price (High to Low)</option>
+              <option value="price_asc">Expired date (Low to High)</option>
+              <option value="price_desc">Expired date (High to Low)</option>
             </select>
           </div>
           <div class="col-6 col-md-4 mb-2 mb-md-0 d-flex align-items-center">
@@ -253,8 +254,29 @@
       </div>
     </div>
 
+    <footer class="bg-primary text-white mt-5 py-3">
+      <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+        <div>
+          <p class="mb-0">&copy; 2024 Product Management System. All Rights Reserved.</p>
+        </div>
+        <div class="d-flex gap-3">
+          <a href="#" class="text-white text-decoration-none">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="#" class="text-white text-decoration-none">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="#" class="text-white text-decoration-none">
+            <i class="fab fa-instagram"></i>
+          </a>
+        </div>
+      </div>
+    </footer>
+    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.9/sweetalert2.all.min.js"></script>
     <script type="module" src="js/dashboard.js"></script>
+    <script type="module" src="js/sorting.js"></script>
   </body>
 </html>
