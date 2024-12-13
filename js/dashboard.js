@@ -9,6 +9,7 @@ const CONFIG = {
 class ProductManager {
   constructor() {
     this.products = [];
+    this.productState = [];
     this.initializeEventListeners();
   }
 
@@ -20,6 +21,7 @@ class ProductManager {
       });
       const { data } = await response.json();
       this.products = data.map(({ _id, ...rest }) => rest);
+      this.productState = data.map(({ _id, ...rest }) => rest);
       document.getElementById("totalProduct").textContent = this.products.length;
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -53,10 +55,10 @@ class ProductManager {
       .addEventListener("input", this.searchProducts.bind(this));
     document
       .getElementById("sortSelect")
-      .addEventListener("change", () => this.applyFiltersAndSort());
+      .addEventListener("change", () => this.sortProducts());
     document
       .getElementById("categoryFilter")
-      .addEventListener("change", () => this.applyFiltersAndSort());
+      .addEventListener("change", () => this.applyFilterByCategory());
   }
 
   // Format date to DD/MM/YYYY
@@ -121,17 +123,32 @@ class ProductManager {
     this.applyFiltersAndSort(filteredProducts);
   }
 
+  async sortProducts(productsToSort = this.products){
+    document.getElementById('nameSortSelected').textContent = `Kecepatan Sorting (${toTitleCase(document.getElementById('selectSort').value)} Sort)`;
+  
+    const sortBy = document.getElementById('sortSelect').value;
+    if(!sortBy) return this.displayProducts(productsToSort);
+
+    const sortOrder = sortSelect.selectedOptions[0].getAttribute('data-sort');
+    let filteredAndSortedProducts = (sortOrder === "ascending") ? await this.sortProductsAscending() : await this.sortProductsDescending();
+    this.displayProducts(filteredAndSortedProducts);
+  }
+
   // Sort products
  sortProductsAscending = async () => {
     try {
       const sortBy = document.getElementById('sortSelect').value;
       const sortName = document.getElementById('selectSort').value;
-  
+      const categoryFilter = document.getElementById('categoryFilter').value;
+      
       const order = 'ascending'; 
       const data = await fetchData(sortName, sortBy, order);
       document.getElementById('timeSort').textContent = data.data.processingTime;
       
-      return data.data.productSorted;
+      const resultData = (categoryFilter) ? data.data.productSorted.filter((data) => data.product_category === categoryFilter) : data.data.productSorted;
+
+      this.productState = resultData;
+      return resultData;
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -141,11 +158,17 @@ class ProductManager {
     try {
       const sortBy = document.getElementById('sortSelect').value;
       const sortName = document.getElementById('selectSort').value;
+      const categoryFilter = document.getElementById('categoryFilter').value;
   
       const order = 'descending'; 
       const data = await fetchData(sortName, sortBy, order);
       document.getElementById('timeSort').textContent = data.data.processingTime;
-      return data.data.productSorted;
+
+
+      const resultData = (categoryFilter) ? data.data.productSorted.filter((data) => data.product_category === categoryFilter) : data.data.productSorted;
+
+      this.productState = resultData;
+      return resultData;
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -162,18 +185,13 @@ filterByCategory(productsToFilter) {
     : productsToFilter; 
 }
 
+applyFilterByCategory(products = this.productState){
+  this.displayProducts(this.filterByCategory(products));
+}
 
   // Apply filters and sort to products
   async applyFiltersAndSort(productToSort = this.products) {
-    document.getElementById('nameSortSelected').textContent = `Kecepatan Sorting (${toTitleCase(document.getElementById('selectSort').value)} Sort)`;
-  
-    const sortBy = document.getElementById('sortSelect').value;
-    if(!sortBy) return this.displayProducts(productToSort);
-
-    const sortOrder = sortSelect.selectedOptions[0].getAttribute('data-sort');
-    const filteredAndSortedProducts = (sortOrder === "ascending") ? await this.sortProductsAscending() : await this.sortProductsDescending();
-
-    this.displayProducts(filteredAndSortedProducts);
+    this.displayProducts(productToSort);
   }
 
   // Populate category filter

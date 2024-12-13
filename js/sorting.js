@@ -20,7 +20,6 @@ export async function fetchData(endpoint, field, order) {
         throw error; 
     }
   }
-
   
   
   

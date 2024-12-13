@@ -1,5 +1,17 @@
 import { fetchData } from './sorting.js';
 
+
+document
+      .getElementById("sortSelect")
+      .addEventListener("change", () => this.applyFiltersAndSort());
+    document
+      .getElementById("categoryFilter")
+      .addEventListener("change", () => this.applyFiltersAndSort());
+
+
+
+
+
 const sortProductsAscending = async () => {
   try {
     const sortBy = document.getElementById('sortSelect').value;
