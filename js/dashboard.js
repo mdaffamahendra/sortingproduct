@@ -137,20 +137,20 @@ class ProductManager {
       // let filteredAndSortedProducts = (sortOrder === "ascending") ? await this.sortProductsAscending() : await this.sortProductsDescending();
       document.getElementById("bubbleSort").onclick = () => {
         modal.hide();
-        document.getElementById('nameSortSelected').textContent = "Kecepatan Sorting (Bubble Sort)"
+        document.getElementById('nameSortSelected').textContent = "Sorting Speed (Bubble Sort)"
         this.handleSortButton("bubble", sortOrder)
       };
         document.getElementById("quickSort").onclick = () => {
           modal.hide();
-          document.getElementById('nameSortSelected').textContent = "Kecepatan Sorting (Quick Sort)"
+          document.getElementById('nameSortSelected').textContent = "Sorting Speed (Quick Sort)"
           this.handleSortButton("quick", sortOrder)};
         document.getElementById("selectionSort").onclick = () => {
           modal.hide();
-          document.getElementById('nameSortSelected').textContent = "Kecepatan Sorting (Selection Sort)"
+          document.getElementById('nameSortSelected').textContent = "Sorting Speed (Selection Sort)"
           this.handleSortButton("selection", sortOrder)};
         document.getElementById("insertionSort").onclick = () => {
           modal.hide();
-          document.getElementById('nameSortSelected').textContent = "Kecepatan Sorting (Insertion Sort)"
+          document.getElementById('nameSortSelected').textContent = "Sorting Speed (Insertion Sort)"
           this.handleSortButton("insertion", sortOrder)};
         }
       }
@@ -232,7 +232,7 @@ populateCategoryFilter() {
   ];
 
   categoryFilter.innerHTML = `
-    <option value="">Semua Kategori</option>
+    <option value="">All Categories</option>
     ${categories
       .map((category) => `<option value="${category}">${category}</option>`)
       .join("")}
@@ -415,7 +415,6 @@ document.getElementById("btnCancelAddForm").addEventListener("click", () => {
 
 
 // Initialize the product manager
-document.getElementById('nameSortSelected').textContent = 'Kecepatan Sorting';
 const productManager = new ProductManager();
 productManager.fetchProducts();
 
