@@ -261,148 +261,148 @@ populateCategoryFilter() {
   }
 
   // Add new product
-  // async addProduct(product) {
-  //   try {
-  //     const isIdExist = this.products.some(p => p.product_id === product.product_id);
-  //     console.log(isIdExist);
-  //     if (isIdExist) {
-  //       Swal.fire("Warning!", "Product ID already exists!", "warning");
-  //       return; 
-  //     }
+  async addProduct(product) {
+    try {
+      const isIdExist = this.products.some(p => p.product_id === product.product_id);
+      console.log(isIdExist);
+      if (isIdExist) {
+        Swal.fire("Warning!", "Product ID already exists!", "warning");
+        return; 
+      }
 
-  //     await fetch(`${CONFIG.BASE_URL}/api/products/`, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: CONFIG.AUTH_TOKEN
-  //       },
-  //       body: JSON.stringify(product)
-  //     });
-  //     Swal.fire("Success!", "Product added successfully!", "success");
-  //     this.products.push(product);
-  //     document.getElementById("totalProduct").textContent = this.products.length;
-  //     this.applyFiltersAndSort();
-  //     document.getElementById("productForm").reset();
-  //     this.populateCategoryFilter();
-  //   } catch (error) {
-  //     Swal.fire("Error!", "Failed to add product", "error");
-  //     console.error("API Request Failed:", error);
-  //   }
-  // }
+      await fetch(`${CONFIG.BASE_URL}/api/products/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: CONFIG.AUTH_TOKEN
+        },
+        body: JSON.stringify(product)
+      });
+      Swal.fire("Success!", "Product added successfully!", "success");
+      this.products.push(product);
+      document.getElementById("totalProduct").textContent = this.products.length;
+      this.applyFiltersAndSort();
+      document.getElementById("productForm").reset();
+      this.populateCategoryFilter();
+    } catch (error) {
+      Swal.fire("Error!", "Failed to add product", "error");
+      console.error("API Request Failed:", error);
+    }
+  }
 
   // // Edit product
-  // editProduct(id) {
-  //   const row = document.querySelector(`tr[data-id="${id}"]`);
-  //   const product = this.products.find((p) => p.product_id === id);
+  editProduct(id) {
+    const row = document.querySelector(`tr[data-id="${id}"]`);
+    const product = this.products.find((p) => p.product_id === id);
 
-  //   row.classList.add("edit-mode");
-  //   row.innerHTML = `
-  //           <td>${product.product_id}</td>
-  //           <td><input type="text" value="${
-  //             product.product_name
-  //           }" name="product_name"></td>
-  //           <td><input type="text" value="${
-  //             product.product_category
-  //           }" name="product_category"></td>
-  //           <td><input type="number" value="${
-  //             product.product_quantity
-  //           }" name="product_quantity"></td>
-  //           <td><input type="number" value="${
-  //             product.product_price
-  //           }" name="product_price"></td>
-  //           <td><input type="date" value="${
-  //             product.product_exp.split("T")[0]
-  //           }" name="product_exp"></td>
-  //           <td>
-  //               <button class="btn btn-sm btn-success mb-2 save-btn">
-  //                   <i class="fas fa-save"></i>
-  //               </button>
-  //               <button class="btn btn-sm btn-secondary canceledit-btn mb-2">
-  //                   <i class="fas fa-times"></i>
-  //               </button>
-  //           </td>
-  //       `;
+    row.classList.add("edit-mode");
+    row.innerHTML = `
+            <td>${product.product_id}</td>
+            <td><input type="text" value="${
+              product.product_name
+            }" name="product_name"></td>
+            <td><input type="text" value="${
+              product.product_category
+            }" name="product_category"></td>
+            <td><input type="number" value="${
+              product.product_quantity
+            }" name="product_quantity"></td>
+            <td><input type="number" value="${
+              product.product_price
+            }" name="product_price"></td>
+            <td><input type="date" value="${
+              product.product_exp.split("T")[0]
+            }" name="product_exp"></td>
+            <td>
+                <button class="btn btn-sm btn-success mb-2 save-btn">
+                    <i class="fas fa-save"></i>
+                </button>
+                <button class="btn btn-sm btn-secondary canceledit-btn mb-2">
+                    <i class="fas fa-times"></i>
+                </button>
+            </td>
+        `;
 
-  //       row.querySelector('.save-btn').addEventListener('click', () => this.saveProduct(id));
-  //       row.querySelector('.canceledit-btn').addEventListener('click', () => this.cancelEdit(id));    
-  // }
+        row.querySelector('.save-btn').addEventListener('click', () => this.saveProduct(id));
+        row.querySelector('.canceledit-btn').addEventListener('click', () => this.cancelEdit(id));    
+  }
 
   // // Save edited product
-  // async saveProduct(id) {
-  //   const row = document.querySelector(`tr[data-id="${id}"]`);
-  //   const updatedProduct = {
-  //     product_id: id,
-  //     product_name: row.querySelector('input[name="product_name"]').value,
-  //     product_category: row.querySelector('input[name="product_category"]')
-  //       .value,
-  //     product_quantity: parseInt(
-  //       row.querySelector('input[name="product_quantity"]').value
-  //     ),
-  //     product_price: parseFloat(
-  //       row.querySelector('input[name="product_price"]').value
-  //     ),
-  //     product_exp: row.querySelector('input[name="product_exp"]').value
-  //   };
+  async saveProduct(id) {
+    const row = document.querySelector(`tr[data-id="${id}"]`);
+    const updatedProduct = {
+      product_id: id,
+      product_name: row.querySelector('input[name="product_name"]').value,
+      product_category: row.querySelector('input[name="product_category"]')
+        .value,
+      product_quantity: parseInt(
+        row.querySelector('input[name="product_quantity"]').value
+      ),
+      product_price: parseFloat(
+        row.querySelector('input[name="product_price"]').value
+      ),
+      product_exp: row.querySelector('input[name="product_exp"]').value
+    };
 
-  //   try {
-  //     await fetch(`${CONFIG.BASE_URL}/api/products/${id}`, {
-  //       method: "PUT",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: CONFIG.AUTH_TOKEN
-  //       },
-  //       body: JSON.stringify(updatedProduct)
-  //     });
+    try {
+      await fetch(`${CONFIG.BASE_URL}/api/products/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: CONFIG.AUTH_TOKEN
+        },
+        body: JSON.stringify(updatedProduct)
+      });
 
-  //     Swal.fire("Success!", "Product updated successfully!", "success");
+      Swal.fire("Success!", "Product updated successfully!", "success");
 
-  //     const index = this.products.findIndex((p) => p.product_id === id);
-  //     this.products[index] = updatedProduct;
-  //     row.classList.remove("edit-mode");
-  //     this.applyFiltersAndSort();
-  //   } catch (error) {
-  //     Swal.fire("Error!", "Failed to update product", "error");
-  //   }
-  // }
+      const index = this.products.findIndex((p) => p.product_id === id);
+      this.products[index] = updatedProduct;
+      row.classList.remove("edit-mode");
+      this.applyFiltersAndSort();
+    } catch (error) {
+      Swal.fire("Error!", "Failed to update product", "error");
+    }
+  }
 
   // // Cancel edit
-  // cancelEdit() {
-  //   this.applyFiltersAndSort();
-  // }
+  cancelEdit() {
+    this.applyFiltersAndSort();
+  }
 
   // // Delete product
-  // async deleteProduct(id) {
-  //   const result = await Swal.fire({
-  //     title: "Are you sure?",
-  //     text: "You won't be able to revert this!",
-  //     icon: "warning",
-  //     showCancelButton: true,
-  //     confirmButtonColor: "#3085d6",
-  //     cancelButtonColor: "#d33",
-  //     confirmButtonText: "Yes, delete it!"
-  //   });
+  async deleteProduct(id) {
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    });
 
-  //   if (result.isConfirmed) {
-  //     try {
-  //       await fetch(`${CONFIG.BASE_URL}/api/products/${id}`, {
-  //         method: "DELETE",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: CONFIG.AUTH_TOKEN
-  //         }
-  //       });
+    if (result.isConfirmed) {
+      try {
+        await fetch(`${CONFIG.BASE_URL}/api/products/${id}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: CONFIG.AUTH_TOKEN
+          }
+        });
 
-  //       this.products = this.products.filter(
-  //         (product) => product.product_id !== id
-  //       );
-  //       document.getElementById("totalProduct").textContent = this.products.length;
-  //       this.applyFiltersAndSort();
-  //       Swal.fire("Deleted!", "Product has been deleted.", "success");
-  //     } catch (error) {
-  //       Swal.fire("Error!", "Failed to delete product", "error");
-  //     }
-  //   }
-  // }
+        this.products = this.products.filter(
+          (product) => product.product_id !== id
+        );
+        document.getElementById("totalProduct").textContent = this.products.length;
+        this.applyFiltersAndSort();
+        Swal.fire("Deleted!", "Product has been deleted.", "success");
+      } catch (error) {
+        Swal.fire("Error!", "Failed to delete product", "error");
+      }
+    }
+  }
 }
 
 
