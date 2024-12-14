@@ -263,6 +263,13 @@ populateCategoryFilter() {
   // Add new product
   async addProduct(product) {
     try {
+      const isIdExist = this.products.some(p => p.product_id === product.product_id);
+      console.log(isIdExist);
+      if (isIdExist) {
+        Swal.fire("Warning!", "Product ID already exists!", "warning");
+        return; 
+      }
+
       await fetch(`${CONFIG.BASE_URL}/api/products/`, {
         method: "POST",
         headers: {
