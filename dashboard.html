@@ -35,12 +35,6 @@
             <h4 class="text-white">Product Management System</h4>
           </div>
           <div class="d-flex gap-2">
-            <select class="custom-select-button fw-bold" id="selectSort">
-              <option selected value="bubble">Bubble Sort</option>
-              <option value="quick">Quick Sort</option>
-              <option value="insertion">Insertion Sort</option>
-              <option value="selection">Selection Sort</option>
-            </select>
             <button
               id="btnAddProduct"
               type="button"
@@ -100,7 +94,7 @@
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-filter" viewBox="0 0 16 16">
                 <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5"/>
               </svg>
-              <p id="nameSortSelected"></p>
+              <p id="nameSortSelected">Kecepatan Sorting</p>
             </div>
           </div>
         </div>
@@ -127,6 +121,50 @@
               <option value="expiry" data-sort="descending">Expired date (High to Low)</option>
             </select>
           </div>
+
+          <div class="modal fade" id="sortModal" tabindex="-1" aria-labelledby="sortModalLabel" data-bs-backdrop="static" data-bs-keyboard="false">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="sortModalLabel">Pilih Sorting</h5>
+                </div>
+                <div class="modal-body d-flex align-items-center gap-3 justify-content-center">
+                  <!-- Kolom Kiri -->
+                  <div class="col-6 d-flex flex-column">
+                    <button class="btn btn-primary w-100 mb-2" id="bubbleSort" value="bubble">Bubble Sort</button>
+                    <i id="bubbleSortDesc" class="d-block mb-2">
+                      Membandingkan dan menukar elemen yang bersebelahan hingga array terurut.
+                      <br><strong>Rekomendasi:</strong> Gunakan untuk data kecil atau hampir terurut.
+                    </i>
+                    
+                    <button class="btn btn-primary w-100 mb-2" id="insertionSort" value="insertion">Insertion Sort</button>
+                    <i id="insertionSortDesc" class="d-block mb-2">
+                      Menyisipkan elemen ke posisi yang tepat di dalam urutan yang sudah terurut.
+                      <br><strong>Rekomendasi:</strong> Pilihan baik jika data hampir terurut atau sedikit.
+                    </i>
+                  </div>
+                
+                  <!-- Kolom Kanan -->
+                  <div class="col-6 d-flex flex-column">
+                    <button class="btn btn-primary w-100 mb-2" id="quickSort" value="quick">Quick Sort</button>
+                    <i id="quickSortDesc" class="d-block mb-2">
+                      Membagi array berdasarkan pivot dan mengurutkan rekursif di kedua sisi pivot.
+                      <br><strong>Rekomendasi:</strong> Pilihan terbaik untuk dataset besar, terutama harga dan kuantitas.
+                    </i>
+                    
+                    <button class="btn btn-primary w-100 mb-2" id="selectionSort" value="selection">Selection Sort</button>
+                    <i id="selectionSortDesc" class="d-block mb-2">
+                      Memilih elemen terkecil dan menukarnya dengan elemen pertama yang belum terurut.
+                      <br><strong>Rekomendasi:</strong> Dapat digunakan untuk data kecil, tetapi tidak efisien untuk data besar.
+                    </i>
+                  </div>
+                </div>                
+              </div>
+            </div>
+          </div>          
+          
+          
+
           <div class="col-6 col-md-4 mb-2 mb-md-0 d-flex align-items-center">
             <select id="categoryFilter" class="form-select">
               <option value="">All Categories</option>

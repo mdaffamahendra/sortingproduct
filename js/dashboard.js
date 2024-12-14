@@ -56,10 +56,12 @@ class ProductManager {
     document
       .getElementById("sortSelect")
       .addEventListener("change", () => this.sortProducts());
+    
     document
       .getElementById("categoryFilter")
       .addEventListener("change", () => this.applyFilterByCategory());
   }
+
 
   // Format date to DD/MM/YYYY
   formatDate(dateString) {
@@ -124,21 +126,50 @@ class ProductManager {
   }
 
   async sortProducts(productsToSort = this.products){
-    document.getElementById('nameSortSelected').textContent = `Kecepatan Sorting (${toTitleCase(document.getElementById('selectSort').value)} Sort)`;
+    const sortValue = document
+    .getElementById("sortSelect").value;
   
-    const sortBy = document.getElementById('sortSelect').value;
-    if(!sortBy) return this.displayProducts(productsToSort);
+    if (sortValue) {
+      const modal = new bootstrap.Modal(document.getElementById("sortModal"));
+      modal.show();
 
-    const sortOrder = sortSelect.selectedOptions[0].getAttribute('data-sort');
-    let filteredAndSortedProducts = (sortOrder === "ascending") ? await this.sortProductsAscending() : await this.sortProductsDescending();
-    this.displayProducts(filteredAndSortedProducts);
+      const sortOrder = sortSelect.selectedOptions[0].getAttribute('data-sort');
+      // let filteredAndSortedProducts = (sortOrder === "ascending") ? await this.sortProductsAscending() : await this.sortProductsDescending();
+      document.getElementById("bubbleSort").onclick = () => {
+        modal.hide();
+        document.getElementById('nameSortSelected').textContent = "Kecepatan Sorting (Bubble Sort)"
+        this.handleSortButton("bubble", sortOrder)
+      };
+        document.getElementById("quickSort").onclick = () => {
+          modal.hide();
+          document.getElementById('nameSortSelected').textContent = "Kecepatan Sorting (Quick Sort)"
+          this.handleSortButton("quick", sortOrder)};
+        document.getElementById("selectionSort").onclick = () => {
+          modal.hide();
+          document.getElementById('nameSortSelected').textContent = "Kecepatan Sorting (Selection Sort)"
+          this.handleSortButton("selection", sortOrder)};
+        document.getElementById("insertionSort").onclick = () => {
+          modal.hide();
+          document.getElementById('nameSortSelected').textContent = "Kecepatan Sorting (Insertion Sort)"
+          this.handleSortButton("insertion", sortOrder)};
+        }
+      }
+
+  async handleSortButton(sortMethod, sortOrder) {
+    let sortedProducts;
+    if(sortOrder === "ascending"){
+      sortedProducts = await this.sortProductsAscending(sortMethod);
+    } else {
+      sortedProducts = await this.sortProductsDescending(sortMethod);
+    }
+
+    this.displayProducts(sortedProducts);
   }
 
   // Sort products
- sortProductsAscending = async () => {
+ sortProductsAscending = async (sortName) => {
     try {
       const sortBy = document.getElementById('sortSelect').value;
-      const sortName = document.getElementById('selectSort').value;
       const categoryFilter = document.getElementById('categoryFilter').value;
       
       const order = 'ascending'; 
@@ -154,20 +185,17 @@ class ProductManager {
     }
   };
   
-  sortProductsDescending = async () => {
+  sortProductsDescending = async (sortName) => {
     try {
       const sortBy = document.getElementById('sortSelect').value;
-      const sortName = document.getElementById('selectSort').value;
       const categoryFilter = document.getElementById('categoryFilter').value;
   
       const order = 'descending'; 
       const data = await fetchData(sortName, sortBy, order);
       document.getElementById('timeSort').textContent = data.data.processingTime;
-      console.log(data.data.productSorted)
 
       const resultData = (categoryFilter) ? data.data.productSorted.filter((data) => data.product_category === categoryFilter) : data.data.productSorted;
        
-      console.log(resultData);
       this.productState = resultData;
       return resultData;
     } catch (error) {
@@ -187,7 +215,6 @@ filterByCategory(productsToFilter) {
 }
 
 applyFilterByCategory(products = this.products){
-
   this.displayProducts(this.filterByCategory(products));
 }
 
@@ -374,14 +401,12 @@ populateCategoryFilter() {
 
 document.getElementById("btnAddProduct").addEventListener("click", () => {
   document.getElementById("contentContainer").style.display = "none";
-  document.getElementById("selectSort").style.display = "none";
   document.getElementById("formContainer").classList.remove("d-none");
   document.getElementById("btnAddProduct").style.display = "none";
 });
 
 document.getElementById("btnCancelAddForm").addEventListener("click", () => {
   document.getElementById("contentContainer").style.display = "block";
-  document.getElementById("selectSort").style.display = "block";
   document.getElementById("formContainer").classList.add("d-none");
   document.getElementById("btnAddProduct").style.display = "block";
 });
@@ -396,11 +421,6 @@ function toTitleCase(input) {
 }
 
 
-document.getElementById('selectSort').addEventListener('change', () => {
-  document.getElementById('nameSortSelected').textContent = `Kecepatan Sorting (${toTitleCase(document.getElementById('selectSort').value)} Sort)`;
-  
-})
-
 
 
 // Initialize the product manager
@@ -408,5 +428,3 @@ document.getElementById('nameSortSelected').textContent = 'Kecepatan Sorting';
 const productManager = new ProductManager();
 productManager.fetchProducts();
 
-
-  

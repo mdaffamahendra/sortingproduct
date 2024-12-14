@@ -11,7 +11,6 @@ document
 
 
 
-
 const sortProductsAscending = async () => {
   try {
     const sortBy = document.getElementById('sortSelect').value;
