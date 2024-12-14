@@ -412,15 +412,6 @@ document.getElementById("btnCancelAddForm").addEventListener("click", () => {
 });
 
 
-function toTitleCase(input) {
-  return input
-      .toLowerCase()
-      .split(' ') 
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1)) 
-      .join(' '); 
-}
-
-
 
 
 // Initialize the product manager
