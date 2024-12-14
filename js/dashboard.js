@@ -163,10 +163,11 @@ class ProductManager {
       const order = 'descending'; 
       const data = await fetchData(sortName, sortBy, order);
       document.getElementById('timeSort').textContent = data.data.processingTime;
-
+      console.log(data.data.productSorted)
 
       const resultData = (categoryFilter) ? data.data.productSorted.filter((data) => data.product_category === categoryFilter) : data.data.productSorted;
-
+       
+      console.log(resultData);
       this.productState = resultData;
       return resultData;
     } catch (error) {
@@ -185,7 +186,8 @@ filterByCategory(productsToFilter) {
     : productsToFilter; 
 }
 
-applyFilterByCategory(products = this.productState){
+applyFilterByCategory(products = this.products){
+
   this.displayProducts(this.filterByCategory(products));
 }
 
